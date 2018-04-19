@@ -1,0 +1,14 @@
+
+# exclude .terraform working files
+.terraform/
+*.tfstate*
+
+# exclude gradle working files
+kotlin/.gradle*
+kotlin/build
+
+# exclude Gemfile.lock
+*.lock
+
+# exclude IDE settings
+.idea

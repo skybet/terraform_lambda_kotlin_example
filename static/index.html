@@ -1,0 +1,75 @@
+<html>
+<head>
+    <!-- include jquery and bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <style>
+        .readonly {
+            border: 1px solid black;
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+
+<div class="pane">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Add card</h4>
+        </div>
+        <div class="panel-body">
+            <form name="addcard" action="${post_target}" method="post">
+                <p>Name: <input type="text" name="name" value="" /></p>
+                <p>Card number: <input class="readonly" type="text" name="number" value="" readonly="readonly" /></p>
+                <p>Expiry: <input class="readonly" type="text" name="expirymonth" value="" readonly="readonly" /> / <input class="readonly" type="text" name="expiryyear" value="" readonly="readonly" /></p>
+                <p>CVV: <input class="readonly" type="text" name="cvv" value="" readonly="readonly" /></p>
+                <input type="submit" name="submit" value="Store" />
+            </form>
+            <p>This is a demo.  You cannot enter a real credit card number into this page, because this is a <b>proof-of-concept only</b>.</p>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // use JS to make up card details
+    function makeRandom(id, min, max, format) {
+        var output = '';
+        var separator = '-';
+        // split format up into XX blocks
+        var chunks = format.split(separator);
+        // loop through blocks and substitute
+        for (var i=0 ; i<chunks.length ; ++i) {
+            // 2nd, 3rd, nth chunk is preceded by a separator
+            if (i !== 0) {
+                output += separator;
+            }
+            var chunk = chunks[i];
+            // create a random number and pad to be the correct length
+            var chnum = pad(Math.floor((Math.random()*(max - min)) + min), chunk.length);
+            // append number to output
+            output += '' + chnum;
+        }
+        // apply to field
+        $(id).val(output);
+        return output;
+    }
+
+    function pad(n, width, z) {
+        z = z || '0';
+        n = n + '';
+        return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
+
+    makeRandom('input[name=number]', 0, 9999, 'XXXX-XXXX-XXXX-XXXX');
+    makeRandom('input[name=expirymonth]', 01, 12, 'XX');
+    makeRandom('input[name=expiryyear]', 19, 26, 'XX');
+    makeRandom('input[name=cvv]', 0, 999, 'XXX');
+    // focus the cursor to the end of the name field
+    $(document).ready(function(){
+        $('input[name="name"]').focus().val('MR A. N. OTHER');
+    });
+</script>
+
+</body>
+</html>
