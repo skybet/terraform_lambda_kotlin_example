@@ -56,7 +56,6 @@ data "template_file" "template_index" {
 # upload files, only when bucket exists
 resource "aws_s3_bucket_object" "index" {
   bucket = "${var.site_bucket_name}"
-  # bucket = "${aws_s3_bucket.site_static.bucket}"
   key = "index.html"
   content = "${data.template_file.template_index.rendered}"
   # source = "${path.root}/../static/index.html"
