@@ -8,6 +8,7 @@ A comprehensive `terraform apply` run of all the modules in this repo requires a
 * AmazonAPIGatewayAdministrator
 * AmazonS3FullAccess
 * CloudWatchLogsFullAccess
+* IAMFullAccess
 
 This is not a recommendation for the permission list you should be using in production, only an example of the kind of laissez-faire permission list that makes experimenting with AWS easy.
 AWS has a limit of 10 manually assigned permissions per user, so please:
